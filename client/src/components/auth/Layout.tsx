@@ -1,8 +1,9 @@
-import { Outlet } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { Outlet, useLocation } from "react-router-dom";
 
 const AuthLayout = () => {
+  const location = useLocation();
+  const isSignUp = location.pathname.includes('sign-up');
+
   return (
     <>
       <style>
@@ -24,31 +25,15 @@ const AuthLayout = () => {
         <div className="flex-1 flex flex-col justify-start items-center p-8 sm:p-10">
           {/* Form Container */}
           <div className="w-full max-w-sm">
-            <h2 className="text-4xl font-semibold mb-2">Welcome!</h2>
+            <h2 className="text-4xl font-semibold mb-2">
+              {isSignUp ? 'Create Account' : 'Welcome!'}
+            </h2>
             <p className="text-gray-400 mb-8">
-              Log in to HealthSpectrum to continue.
+              {isSignUp 
+                ? 'Join HealthSpectrum to get started with AI-powered medical analysis.'
+                : 'Log in to HealthSpectrum to continue.'
+              }
             </p>
-
-            {/* Social Logins */}
-            <div className="space-y-4 mb-6">
-              <button className="w-full flex items-center gap-2 justify-center p-3 border border-gray-700 rounded-lg custom-shadow hover:bg-gray-800 transition-colors">
-                {/* {googleIcon} */}
-                <FcGoogle />
-                <span>Log in with Google</span>
-              </button>
-              <button className="w-full flex items-center justify-center p-3 gap-2 border border-gray-700 rounded-lg custom-shadow hover:bg-gray-800 transition-colors">
-                {/* {appleIcon} */}
-                <FaGithub />
-                <span>Log in with Github</span>
-              </button>
-            </div>
-
-            {/* OR separator */}
-            <div className="flex items-center my-6">
-              <div className="flex-grow border-t border-gray-700"></div>
-              <span className="mx-4 text-gray-500 text-sm font-medium">OR</span>
-              <div className="flex-grow border-t border-gray-700"></div>
-            </div>
 
             <Outlet />
           </div>
